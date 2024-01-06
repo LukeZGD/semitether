@@ -2,12 +2,15 @@
 #set -x
 devices=(iPad2,1 iPad2,2 iPad2,3)
 
-jq="./jq"
-pzb="./pzb"
-xpwntool="./xpwntool"
-bsdiff="./bsdiff"
-make_kernel_patchfile="./make_kernel_patchfile"
-apply_patchfile="./apply_patchfile"
+cd "$(dirname "$0")"
+
+dir="bin/macos"
+jq="$dir/jq"
+pzb="$dir/pzb"
+xpwntool="$dir/xpwntool"
+bsdiff="$dir/bsdiff"
+make_kernel_patchfile="$dir/make_kernel_patchfile"
+apply_patchfile="$dir/apply_patchfile"
 mkdir kernelcaches kernelcaches_dec kernelcaches_patched patches 2>/dev/null
 
 for device in ${devices[@]}; do
