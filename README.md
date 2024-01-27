@@ -2,7 +2,7 @@
 
 - For iPad 2 4.3.x semi-tethered jailbreaking
 - Not sure what to call this, I guess "g1lbertlite" ???
-- The "jailbreak" is just powered by iBoot32Patcher and comex's kernel patcher
+- The "jailbreak" is just powered by [dora's fork of iBoot32Patcher](https://github.com/dora2ios/iBoot32Patcher) and [comex's kernel patcher](https://github.com/comex/datautils0)
 - Implemented in [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit)
 
 Manual preparation:
