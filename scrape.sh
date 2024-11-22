@@ -1,6 +1,6 @@
 #!/bin/bash
 #set -x
-devices=(iPad2,1 iPad2,2 iPad2,3)
+devices=(iPad2,1 iPad2,2 iPad2,3 iPhone3,3)
 
 cd "$(dirname "$0")"
 
@@ -20,12 +20,14 @@ for device in ${devices[@]}; do
         iPad2,1 ) device_model=K93;;
         iPad2,2 ) device_model=K94;;
         iPad2,3 ) device_model=K95;;
+        iPhone3,3 ) device_model=N92;;
     esac
 
     case $device in
         iPad2,1 ) device_modell=k93;;
         iPad2,2 ) device_modell=k94;;
         iPad2,3 ) device_modell=k95;;
+        iPhone3,3 ) device_modell=n92;;
     esac
 
     len=$(echo "$json" | $jq length)
@@ -40,19 +42,22 @@ for device in ${devices[@]}; do
     done
 
     for build in ${builds[@]}; do
-        echo ${device_model}_${build}
-        url="$(curl https://api.ipsw.me/v2.1/$device/$build/url)"
-        $pzb -g "kernelcache.release.$device_modell" -o "kc-${device_model}_${build}" "$url"
-        mv "kc-${device_model}_${build}" kernelcaches/
-
         case $build in
+            8E501 ) vers=4.2.9;;
+            8E600 ) vers=4.2.10;;
             8F191 ) vers=4.3;;
             8G4   ) vers=4.3.1;;
             8H*   ) vers=4.3.2;;
             8J2   ) vers=4.3.3;;
             8K2   ) vers=4.3.4;;
             8L1   ) vers=4.3.5;;
+            * ) continue;;
         esac
+
+        echo ${device_model}_${build}
+        url="$(curl https://api.ipsw.me/v2.1/$device/$build/url)"
+        $pzb -g "kernelcache.release.$device_modell" -o "kc-${device_model}_${build}" "$url"
+        mv "kc-${device_model}_${build}" kernelcaches/
 
         device_fw_key="$(curl https://api.m1sta.xyz/wikiproxy/$device/$build)"
         iv=$(echo $device_fw_key | $jq -j '.keys[] | select(.image | startswith("Kernelcache")) | .iv')
